@@ -10,12 +10,24 @@ package SmartParkManagement;
  * @author USER
  */
 public class VehicleOut extends javax.swing.JFrame {
+    private javax.swing.Timer clockTimer;
 
     /**
      * Creates new form VehicleOut
      */
     public VehicleOut() {
         initComponents();
+        
+    setLocationRelativeTo(null);
+    updateClock();
+    clockTimer = new javax.swing.Timer(1000, e -> updateClock());
+    clockTimer.start();
+}
+
+private void updateClock() {
+    lblTime.setText(java.time.LocalDateTime.now().format(
+            java.time.format.DateTimeFormatter.ofPattern("MMM dd, yyyy  hh:mm:ss a")));
+
     }
 
     /**
@@ -27,21 +39,120 @@ public class VehicleOut extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtPlateNumber = new javax.swing.JTextField();
+        btnOk = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        lblTime = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel1.setText("SmartPark Management");
+
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel2.setText("Vehicle Time-out:");
+
+        jLabel3.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel3.setText("Enter the Vehicle Plate Number:");
+
+        btnOk.setBackground(new java.awt.Color(0, 255, 0));
+        btnOk.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setBackground(new java.awt.Color(255, 0, 0));
+        btnCancel.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        btnCancel.setText("CANCEL");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPlateNumber)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(88, 88, 88))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPlateNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOk)
+                    .addComponent(btnCancel))
+                .addGap(53, 53, 53))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+    new MainMenu().setVisible(true);
+    clockTimer.stop();
+    this.dispose();    // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+String plate = txtPlateNumber.getText().trim();
+
+    if (plate.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Enter the plate number.");
+        return;
+    }
+
+    ParkingData.VehicleRecord rec = ParkingData.timeOut(plate);   // occupied -1, available +1
+
+    if (rec == null) {
+        javax.swing.JOptionPane.showMessageDialog(this, "This plate is not in the parking.");
+        return;
+    }
+
+    javax.swing.JOptionPane.showMessageDialog(this,
+            "Vehicle " + rec.plate + " timed out.\nSlot " + rec.getSlotText() + " is now available.");
+
+    new Receipt().setVisible(true);
+    clockTimer.stop();
+    this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +190,12 @@ public class VehicleOut extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JTextField txtPlateNumber;
     // End of variables declaration//GEN-END:variables
 }

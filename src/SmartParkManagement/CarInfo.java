@@ -11,13 +11,24 @@ package SmartParkManagement;
  */
 public class CarInfo extends javax.swing.JFrame {
 
+    private javax.swing.Timer timer;
     /**
      * Creates new form CarInfo
      */
     public CarInfo() {
         initComponents();
+        setLocationRelativeTo(null);
+        btnNext.setEnabled(false);      // NEXT works only after REGISTER
+        updateLabels();
+        timer = new javax.swing.Timer(500, e -> updateLabels());   // auto refresh
+        timer.start();
     }
 
+    private void updateLabels() {
+    lblTotal.setText(String.valueOf(ParkingData.getTotal("Car")));
+    lblOccupied.setText(String.valueOf(ParkingData.getOccupied("Car")));
+    lblAvailable.setText(String.valueOf(ParkingData.getAvailable("Car")));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +38,163 @@ public class CarInfo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnNext = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
+        btnCancel = new javax.swing.JButton();
+        btnRegister = new javax.swing.JButton();
+        lblOccupied = new javax.swing.JLabel();
+        lblAvailable = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel1.setText("SmartPark Management");
+
+        jLabel2.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        jLabel2.setText("Total Parking Slot");
+
+        jLabel3.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        jLabel3.setText("Occupied");
+
+        jLabel4.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        jLabel4.setText("Available");
+
+        btnNext.setBackground(new java.awt.Color(0, 255, 0));
+        btnNext.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        btnNext.setText("NEXT");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
+
+        lblTotal.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal.setText("42");
+
+        btnCancel.setBackground(new java.awt.Color(255, 0, 0));
+        btnCancel.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        btnCancel.setText("CANCEL");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnRegister.setBackground(new java.awt.Color(0, 255, 0));
+        btnRegister.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        btnRegister.setText("REGISTER");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
+
+        lblOccupied.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        lblOccupied.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblOccupied.setText("0");
+
+        lblAvailable.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        lblAvailable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAvailable.setText("42");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(77, 77, 77))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(59, 59, 59))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(btnCancel)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnRegister))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(lblTotal))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblAvailable))
+                            .addComponent(jLabel4))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnNext)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblOccupied)
+                        .addGap(49, 49, 49)))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotal)
+                    .addComponent(lblOccupied))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAvailable)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNext)
+                    .addComponent(btnCancel)
+                    .addComponent(btnRegister))
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+    timer.stop();
+        new VehicleInfo().setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+ParkingData.VehicleRecord rec = ParkingData.registerVehicle(
+                ParkingData.pendingOwner, ParkingData.pendingPlate, "Car");
+ 
+        if (rec == null) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Parking is full or this plate is already parked.");
+            return;
+        }
+        updateLabels();                     // occupied +1, available -1
+        btnRegister.setEnabled(false);      // prevents registering twice
+        btnNext.setEnabled(true);
+            // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+timer.stop();
+        new MainMenu().setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +232,15 @@ public class CarInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnRegister;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblAvailable;
+    private javax.swing.JLabel lblOccupied;
+    private javax.swing.JLabel lblTotal;
     // End of variables declaration//GEN-END:variables
 }

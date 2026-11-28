@@ -34,7 +34,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtPlate = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        cmbVehicle = new javax.swing.JComboBox<>();
+        cmbType = new javax.swing.JComboBox<>();
         btnExit = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
 
@@ -43,17 +43,23 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
         jLabel1.setText("SmartPark Management");
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 9)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
         jLabel2.setText("Vehicle Owner's Name:");
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 9)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
         jLabel3.setText("Plate Number:");
 
-        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 9)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
         jLabel4.setText("Vehicle Type:");
 
-        cmbVehicle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selected Vehicle Type", "Car", "Motorcycle" }));
-        cmbVehicle.setToolTipText("");
+        cmbType.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+        cmbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selected Vehicle Type", "Car", "Motorcycle" }));
+        cmbType.setToolTipText("");
+        cmbType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTypeActionPerformed(evt);
+            }
+        });
 
         btnExit.setBackground(new java.awt.Color(255, 0, 0));
         btnExit.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
@@ -66,7 +72,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnRegister.setBackground(new java.awt.Color(0, 255, 0));
         btnRegister.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        btnRegister.setText("REGISTER");
+        btnRegister.setText("ENTER");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
@@ -91,16 +97,18 @@ public class Dashboard extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(btnExit)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbVehicle, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPlate, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtOwner)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(btnRegister)))
-                .addGap(47, 47, 47))
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbType, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPlate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtOwner))
+                        .addGap(47, 47, 47))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnRegister)
+                        .addGap(76, 76, 76))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,8 +126,8 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cmbVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addComponent(cmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
                     .addComponent(btnRegister))
@@ -139,40 +147,69 @@ public class Dashboard extends javax.swing.JFrame {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
     String owner = txtOwner.getText().trim();
     String plate = txtPlate.getText().trim();
-    String vehicle = cmbVehicle.getSelectedItem().toString();
+    String vehicle = cmbType.getSelectedItem().toString();
 
     if (owner.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-            "Please enter the vehicle owner's name.");
+        JOptionPane.showMessageDialog(this, "Please enter the vehicle owner's name.");
         return;
     }
-
     if (plate.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-            "Please enter the plate number.");
+        JOptionPane.showMessageDialog(this, "Please enter the plate number.");
+        return;
+    }
+    if (cmbType.getSelectedIndex() == 0) {
+        JOptionPane.showMessageDialog(this, "Please select a vehicle type.");
+        return;
+    }
+    if (ParkingData.isParked(plate)) {
+        JOptionPane.showMessageDialog(this, "This plate is already parked.");
         return;
     }
 
-    if (cmbVehicle.getSelectedIndex() == 0) {
-        JOptionPane.showMessageDialog(this,
-            "Please select a vehicle type.");
-        return;
+    ParkingData.pendingOwner = owner;
+    ParkingData.pendingPlate = plate;
+    ParkingData.pendingType = vehicle;
+
+    if (vehicle.equals("Motorcycle")) {
+        new MotorcycleInfo().setVisible(true);
+    } else {
+        new CarInfo().setVisible(true);
     }
-
-    JOptionPane.showMessageDialog(this,
-        "Vehicle Information:\n\n"
-        + "Owner: " + owner + "\n"
-        + "Plate Number: " + plate + "\n"
-        + "Vehicle Type: " + vehicle,
-        "SmartPark",
-        JOptionPane.INFORMATION_MESSAGE
-    );  
-    
-    CarInfo car = new CarInfo();
-    car.setVisible(true);
-
     this.dispose();    // TODO add your handling code here:
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void cmbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTypeActionPerformed
+ String type = String.valueOf(cmbType.getSelectedItem());
+
+    if (!type.equals("Car") && !type.equals("Motorcycle")) {
+        return;
+    }
+
+    String owner = txtOwner.getText().trim();
+    String plate = txtPlate.getText().trim();
+
+    if (owner.isEmpty() || plate.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Enter the owner's name and plate number first.");
+        cmbType.setSelectedIndex(0);
+        return;
+    }
+    if (ParkingData.isParked(plate)) {
+        JOptionPane.showMessageDialog(this, "This plate is already parked.");
+        cmbType.setSelectedIndex(0);
+        return;
+    }
+
+    ParkingData.pendingOwner = owner;
+    ParkingData.pendingPlate = plate;
+    ParkingData.pendingType = type;
+
+    if (type.equals("Car")) {
+        new CarInfo().setVisible(true);
+    } else {
+        new MotorcycleInfo().setVisible(true);
+    }
+    this.dispose();       // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,7 +249,7 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnRegister;
-    private javax.swing.JComboBox<String> cmbVehicle;
+    private javax.swing.JComboBox<String> cmbType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

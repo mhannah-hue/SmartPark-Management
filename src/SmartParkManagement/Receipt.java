@@ -10,13 +10,32 @@ package SmartParkManagement;
  * @author USER
  */
 public class Receipt extends javax.swing.JFrame {
+    private javax.swing.Timer clockTimer;
 
     /**
      * Creates new form Receipt
      */
     public Receipt() {
         initComponents();
+        setLocationRelativeTo(null);
+ 
+        ParkingData.VehicleRecord r = ParkingData.lastTimedOut;
+        if (r != null) {
+            lblOwner.setText(r.owner);
+            lblType.setText(r.type);
+            lblPlate.setText(r.plate);
+            lblSlot.setText(r.getSlotText());
+            lblDate.setText(r.getDateText());
+            lblTimeIn.setText(r.getTimeInText());
+            lblTimeOut.setText(r.getTimeOutText());
+            
+    lblHours.setText(String.valueOf(r.getHoursCharged()));   // remove if no lblHours
+            lblFee.setText(String.format("P%,.2f", (double) r.getFee()));
+        }
+        lblPersonnel.setText(ParkingData.currentPersonnel.isEmpty()
+                ? "N/A" : ParkingData.currentPersonnel);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +46,201 @@ public class Receipt extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        btnOk = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lblPersonnel = new javax.swing.JLabel();
+        lblTimeOut = new javax.swing.JLabel();
+        lblTimeIn = new javax.swing.JLabel();
+        lblOwner = new javax.swing.JLabel();
+        lblType = new javax.swing.JLabel();
+        lblPlate = new javax.swing.JLabel();
+        lblSlot = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        lblHours = new javax.swing.JLabel();
+        lblFee = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel1.setText("SmartPark Management");
+
+        btnOk.setBackground(new java.awt.Color(0, 255, 51));
+        btnOk.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel2.setText("Owner:");
+
+        jLabel3.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel3.setText("Vehicle Type:");
+
+        jLabel4.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel4.setText("Plate Number:");
+
+        jLabel5.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel5.setText("Assigned Slot:");
+
+        jLabel6.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel6.setText("Date:");
+
+        jLabel7.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel7.setText("Time-in:");
+
+        jLabel8.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel8.setText("Time-out:");
+
+        jLabel9.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel9.setText("Hours Charged:");
+
+        jLabel10.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel10.setText("Total Parking Fee:");
+
+        jLabel11.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
+        jLabel11.setText("Personnel on Duty:");
+
+        lblPersonnel.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblTimeOut.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblTimeIn.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblOwner.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblType.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblPlate.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblSlot.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblDate.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblHours.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
+
+        lblFee.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(89, 89, 89))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addGap(73, 73, 73)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblFee, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(lblHours, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTimeOut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTimeIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSlot, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPlate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblOwner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addComponent(lblType, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPlate, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSlot, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(lblTimeIn, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(lblTimeOut, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addComponent(lblHours, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10)
+                    .addComponent(lblFee, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnOk)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+    new MainMenu().setVisible(true);
+        this.dispose();
+ 
+        clockTimer.stop();
+        new Receipt().setVisible(true);
+        this.dispose();    // TODO add your handling code here:
+    }//GEN-LAST:event_btnOkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +278,27 @@ public class Receipt extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOk;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblFee;
+    private javax.swing.JLabel lblHours;
+    private javax.swing.JLabel lblOwner;
+    private javax.swing.JLabel lblPersonnel;
+    private javax.swing.JLabel lblPlate;
+    private javax.swing.JLabel lblSlot;
+    private javax.swing.JLabel lblTimeIn;
+    private javax.swing.JLabel lblTimeOut;
+    private javax.swing.JLabel lblType;
     // End of variables declaration//GEN-END:variables
 }
